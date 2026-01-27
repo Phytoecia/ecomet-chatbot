@@ -1,0 +1,63 @@
+
+# eCOMET: Ecological Metabolomics Toolkit
+
+## Installation
+You can install the development version of ecomet from GitHub with:
+```r
+# install.packages("pak")
+pak::pak("phytoecia/eCOMET")
+```
+Basic usage:
+```r
+library(ecomet)
+```
+
+## Input Files Requirements
+1. Feature quantification table (features.csv) from MZMine4.
+2. Annotation of features by SIRIUS (canopus_formula_summary.tsv, structure_identification.tsv).
+3. Metadata (metadata.csv): columns sample, group, mass.
+4. (Optional) Custom annotation DB.
+5. (Optional) Chemical similarity table (cosine.csv, dreams.csv, ms2deepscore.csv).
+
+## Initializing the MMO Object
+```r
+# Define directories
+mzmine_featuredir <- 'raw_data/250724_features_ms2.csv'
+metadatadir <- "raw_data/250728_mmo_metadata.csv"
+
+# Create MMO object
+mmo <- GetMZmineFeature(mzmine_featuredir, metadatadir)
+
+# Add SIRIUS annotation
+mmo <- AddSiriusAnnot(mmo, canopus_structuredir, canopus_formuladir)
+
+# Add Custom annotation
+mmo <- AddCustomAnnot(mmo, DB = gls_db, mztol = 5, rttol = 0.1)
+
+# Normalization
+mmo <- ReplaceZero(mmo, method = 'one')
+mmo <- MassNormalization(mmo)
+mmo <- MeancenterNormalization(mmo)
+mmo <- LogNormalization(mmo)
+mmo <- ZNormalization(mmo)
+```
+
+## PLS-DA Analysis
+Visualize the general distribution of metabolic profiles.
+```r
+# Define colors
+custom_colors <- c("ctrl" = "#999999", "sl1" = "#fdcdac", "le1" = "#b3e2cd")
+
+# Plot PLS-DA
+PLSDAplot(mmo, color = custom_colors, outdir = 'plots/plsda/PLSDA_Z.pdf', normalization = 'Z')
+```
+
+## Heatmap
+Visualize the whole metabolome.
+```r
+# Generate inputs
+HMinput <- GenerateHeatmapInputs(mmo, filter_feature = FALSE, summarize = 'mean', control_group = 'ctrl', normalization = 'Z', distance = 'dreams')
+
+# Generate annotation table
+sirius_annot <- mmo$sirius_annot
+```

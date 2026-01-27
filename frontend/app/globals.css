@@ -1,0 +1,19 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@theme {
+  --color-primary: #158CBA;
+  --color-navbar: #F6F6F6;
+  --font-sans: "Source Sans Pro", -apple-system, system-ui, sans-serif;
+}
+
+:root {
+  --background: #ffffff;
+  --foreground: #222222;
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: var(--font-sans);
+}

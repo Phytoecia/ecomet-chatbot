@@ -1,0 +1,33 @@
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Node
+node_modules/
+npm-debug.log
+yarn-error.log
+.next/
+
+# IDE
+.vscode/
+.idea/
+.DS_Store
+
+# R Artifacts (just in case)
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+
+# Custom
+ecomet_reference_full.txt
