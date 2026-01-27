@@ -60,29 +60,35 @@ CHAT_LOGS = []
 
 @app.post("/chat")
 async def chat(request: ChatRequest):
-    api_key = os.getenv("GEMINI_API_KEY")
-    if not api_key:
-        raise HTTPException(status_code=500, detail="GEMINI_API_KEY not set")
+    try:
+        api_key = os.getenv("GEMINI_API_KEY")
+        if not api_key:
+            raise HTTPException(status_code=500, detail="GEMINI_API_KEY not set")
 
-    genai.configure(api_key=api_key)
-    model = genai.GenerativeModel("gemini-1.5-flash") # Using a stable fast model
-    
-    # Use the current global system prompt
-    chat = model.start_chat(history=[
-        {"role": "user", "parts": SYSTEM_PROMPT},
-        {"role": "model", "parts": "Understood. I am ready to help with eCOMET questions based on the documentation provided."}
-    ])
-    
-    response = chat.send_message(request.message)
-    
-    # Log the interaction
-    CHAT_LOGS.append({
-        "timestamp": str(datetime.now()),
-        "user": request.message,
-        "bot": response.text
-    })
-    
-    return {"response": response.text}
+        genai.configure(api_key=api_key)
+        model = genai.GenerativeModel("gemini-1.5-flash") # Using a stable fast model
+        
+        # Use the current global system prompt
+        chat_session = model.start_chat(history=[
+            {"role": "user", "parts": SYSTEM_PROMPT},
+            {"role": "model", "parts": "Understood. I am ready to help with eCOMET questions based on the documentation provided."}
+        ])
+        
+        response = chat_session.send_message(request.message)
+        
+        # Log the interaction
+        CHAT_LOGS.append({
+            "timestamp": str(datetime.now()),
+            "user": request.message,
+            "bot": response.text
+        })
+        
+        return {"response": response.text}
+    except HTTPException:
+        raise
+    except Exception as e:
+        # Return the actual error for debugging
+        raise HTTPException(status_code=500, detail=f"Chat Error: {type(e).__name__}: {str(e)}")
 
 class AdminPromptUpdate(BaseModel):
     new_prompt: str
