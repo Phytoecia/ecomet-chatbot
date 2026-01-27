@@ -19,4 +19,4 @@ jobs:
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
         run: |
-          git push https://Phytoecia:$HF_TOKEN@huggingface.co/spaces/Phytoecia/ecomet-chatbot-backend main
+          git push --force https://Phytoecia:$HF_TOKEN@huggingface.co/spaces/Phytoecia/ecomet-chatbot-backend main
