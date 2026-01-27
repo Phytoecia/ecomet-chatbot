@@ -1,3 +1,12 @@
+---
+title: eCOMET Chatbot Backend
+emoji: 🌿
+colorFrom: blue
+colorTo: green
+sdk: docker
+pinned: false
+---
+
 # eCOMET Chatbot
 
 An AI-powered assistant for the [eCOMET](https://phytoecia.github.io/eCOMET/) R package (Eco-Metabolomics Toolkit).
