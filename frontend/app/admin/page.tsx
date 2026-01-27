@@ -11,7 +11,10 @@ export default function AdminPage() {
     const [status, setStatus] = useState("");
     const [activeTab, setActiveTab] = useState("logs");
 
-    const baseUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+    // Zero-config URL for Hugging Face Backend
+    const baseUrl = process.env.NODE_ENV === "production"
+        ? "https://phytoecia-ecomet-chatbot-backend.hf.space"
+        : "http://localhost:8000";
 
     const login = async () => {
         try {
