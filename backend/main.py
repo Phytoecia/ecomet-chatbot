@@ -21,7 +21,7 @@ app.add_middleware(
 
 @app.get("/")
 def read_root():
-    return {"status": "eCOMET Backend is Running", "docs_url": "/docs"}
+    return {"status": "eCOMET Backend is Running", "version": "v2_systematic_fix", "docs_url": "/docs"}
 
 class ChatRequest(BaseModel):
     message: str
