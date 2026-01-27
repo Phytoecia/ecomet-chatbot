@@ -1,0 +1,45 @@
+[debug] [2026-01-27T09:52:02.238Z] ----------------------------------------------------------------------
+[debug] [2026-01-27T09:52:02.242Z] Command:       /Users/minsoo/anaconda3/envs/ecomet-chat/bin/node /Users/minsoo/anaconda3/envs/ecomet-chat/bin/firebase projects:create ecomet-chatbot-phytoecia --display-name eCOMET Chatbot
+[debug] [2026-01-27T09:52:02.243Z] CLI Version:   15.4.0
+[debug] [2026-01-27T09:52:02.243Z] Platform:      darwin
+[debug] [2026-01-27T09:52:02.243Z] Node Version:  v20.19.6
+[debug] [2026-01-27T09:52:02.244Z] Time:          Tue Jan 27 2026 18:52:02 GMT+0900 (Korean Standard Time)
+[debug] [2026-01-27T09:52:02.244Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2026-01-27T09:52:02.584Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-01-27T09:52:02.585Z] > authorizing via signed-in user (minsoo1012@snu.ac.kr)
+[debug] [2026-01-27T09:52:02.589Z] Checked if tokens are valid: true, expires at: 1769511001234
+[debug] [2026-01-27T09:52:02.590Z] Checked if tokens are valid: true, expires at: 1769511001234
+[debug] [2026-01-27T09:52:02.593Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects [none]
+[debug] [2026-01-27T09:52:02.594Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects {"projectId":"ecomet-chatbot-phytoecia","name":"eCOMET Chatbot"}
+[debug] [2026-01-27T09:52:03.182Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects 200
+[debug] [2026-01-27T09:52:03.183Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects {"name":"operations/create_project.global.8354006379215118819"}
+[debug] [2026-01-27T09:52:03.186Z] Checked if tokens are valid: true, expires at: 1769511001234
+[debug] [2026-01-27T09:52:03.187Z] Checked if tokens are valid: true, expires at: 1769511001234
+[debug] [2026-01-27T09:52:03.187Z] >>> [apiv2][query] GET https://cloudresourcemanager.googleapis.com/v1/operations/create_project.global.8354006379215118819 [none]
+[debug] [2026-01-27T09:52:03.984Z] <<< [apiv2][status] GET https://cloudresourcemanager.googleapis.com/v1/operations/create_project.global.8354006379215118819 200
+[debug] [2026-01-27T09:52:03.984Z] <<< [apiv2][body] GET https://cloudresourcemanager.googleapis.com/v1/operations/create_project.global.8354006379215118819 {"name":"operations/create_project.global.8354006379215118819"}
+[debug] [2026-01-27T09:52:04.485Z] [Project Creation Poller] Retrying task index 0
+[debug] [2026-01-27T09:52:04.486Z] Checked if tokens are valid: true, expires at: 1769511001234
+[debug] [2026-01-27T09:52:04.486Z] Checked if tokens are valid: true, expires at: 1769511001234
+[debug] [2026-01-27T09:52:04.486Z] >>> [apiv2][query] GET https://cloudresourcemanager.googleapis.com/v1/operations/create_project.global.8354006379215118819 [none]
+[debug] [2026-01-27T09:52:04.704Z] <<< [apiv2][status] GET https://cloudresourcemanager.googleapis.com/v1/operations/create_project.global.8354006379215118819 200
+[debug] [2026-01-27T09:52:04.704Z] <<< [apiv2][body] GET https://cloudresourcemanager.googleapis.com/v1/operations/create_project.global.8354006379215118819 {"name":"operations/create_project.global.8354006379215118819"}
+[debug] [2026-01-27T09:52:05.706Z] [Project Creation Poller] Retrying task index 0
+[debug] [2026-01-27T09:52:05.707Z] Checked if tokens are valid: true, expires at: 1769511001234
+[debug] [2026-01-27T09:52:05.707Z] Checked if tokens are valid: true, expires at: 1769511001234
+[debug] [2026-01-27T09:52:05.709Z] >>> [apiv2][query] GET https://cloudresourcemanager.googleapis.com/v1/operations/create_project.global.8354006379215118819 [none]
+[debug] [2026-01-27T09:52:05.928Z] <<< [apiv2][status] GET https://cloudresourcemanager.googleapis.com/v1/operations/create_project.global.8354006379215118819 200
+[debug] [2026-01-27T09:52:05.929Z] <<< [apiv2][body] GET https://cloudresourcemanager.googleapis.com/v1/operations/create_project.global.8354006379215118819 {"name":"operations/create_project.global.8354006379215118819","metadata":{"@type":"type.googleapis.com/google.cloudresourcemanager.v1.ProjectCreationStatus","gettable":true,"ready":true},"done":true,"response":{"@type":"type.googleapis.com/google.cloudresourcemanager.v1.Project","projectNumber":"197218770892","projectId":"ecomet-chatbot-phytoecia","lifecycleState":"ACTIVE","name":"eCOMET Chatbot","createTime":"2026-01-27T09:52:04.136381Z","parent":{"type":"organization","id":"515639501407"}}}
+[debug] [2026-01-27T09:52:05.931Z] Checked if tokens are valid: true, expires at: 1769511001234
+[debug] [2026-01-27T09:52:05.931Z] Checked if tokens are valid: true, expires at: 1769511001234
+[debug] [2026-01-27T09:52:05.932Z] >>> [apiv2][query] POST https://firebase.googleapis.com/v1beta1/projects/ecomet-chatbot-phytoecia:addFirebase [none]
+[debug] [2026-01-27T09:52:07.506Z] <<< [apiv2][status] POST https://firebase.googleapis.com/v1beta1/projects/ecomet-chatbot-phytoecia:addFirebase 403
+[debug] [2026-01-27T09:52:07.507Z] <<< [apiv2][body] POST https://firebase.googleapis.com/v1beta1/projects/ecomet-chatbot-phytoecia:addFirebase {"error":{"code":403,"message":"The caller does not have permission","status":"PERMISSION_DENIED"}}
+[debug] [2026-01-27T09:52:07.509Z] Request to https://firebase.googleapis.com/v1beta1/projects/ecomet-chatbot-phytoecia:addFirebase had HTTP Error: 403, The caller does not have permission
+[debug] [2026-01-27T09:52:07.762Z] FirebaseError: Request to https://firebase.googleapis.com/v1beta1/projects/ecomet-chatbot-phytoecia:addFirebase had HTTP Error: 403, The caller does not have permission
+    at responseToError (/Users/minsoo/anaconda3/envs/ecomet-chat/lib/node_modules/firebase-tools/lib/responseToError.js:53:12)
+    at RetryOperation._fn (/Users/minsoo/anaconda3/envs/ecomet-chat/lib/node_modules/firebase-tools/lib/apiv2.js:325:77)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+[error] 
+[error] Error: Failed to add Firebase to Google Cloud Platform project. See firebase-debug.log for more info.

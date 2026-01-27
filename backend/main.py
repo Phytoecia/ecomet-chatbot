@@ -4,6 +4,7 @@ from pydantic import BaseModel
 import google.generativeai as genai
 from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
+from datetime import datetime
 
 load_dotenv()
 
@@ -50,6 +51,9 @@ Documentation:
 {get_ecomet_context()}
 """
 
+# In-memory storage for MVP (Production should use a database)
+CHAT_LOGS = []
+
 @app.post("/chat")
 async def chat(request: ChatRequest):
     api_key = os.getenv("GEMINI_API_KEY")
@@ -59,13 +63,60 @@ async def chat(request: ChatRequest):
     genai.configure(api_key=api_key)
     model = genai.GenerativeModel("gemini-2.5-flash") # Using a fast model
     
+    # Use the current global system prompt
     chat = model.start_chat(history=[
         {"role": "user", "parts": SYSTEM_PROMPT},
         {"role": "model", "parts": "Understood. I am ready to help with eCOMET questions based on the documentation provided."}
     ])
     
     response = chat.send_message(request.message)
+    
+    # Log the interaction
+    CHAT_LOGS.append({
+        "timestamp": str(datetime.now()),
+        "user": request.message,
+        "bot": response.text
+    })
+    
     return {"response": response.text}
+
+class AdminPromptUpdate(BaseModel):
+    new_prompt: str
+    password: str
+
+class AdminLogin(BaseModel):
+    password: str
+
+@app.post("/admin/login")
+def admin_login(creds: AdminLogin):
+    admin_pass = os.getenv("ADMIN_PASSWORD", "admin123") # Default for dev
+    if creds.password != admin_pass:
+        raise HTTPException(status_code=401, detail="Invalid password")
+    return {"status": "ok"}
+
+@app.get("/admin/logs")
+def get_logs(password: str):
+    admin_pass = os.getenv("ADMIN_PASSWORD", "admin123")
+    if password != admin_pass:
+        raise HTTPException(status_code=401, detail="Invalid password")
+    return CHAT_LOGS
+
+@app.post("/admin/system-prompt")
+def update_system_prompt(update: AdminPromptUpdate):
+    global SYSTEM_PROMPT
+    admin_pass = os.getenv("ADMIN_PASSWORD", "admin123")
+    if update.password != admin_pass:
+        raise HTTPException(status_code=401, detail="Invalid password")
+    
+    SYSTEM_PROMPT = update.new_prompt
+    return {"status": "updated", "new_prompt": SYSTEM_PROMPT}
+
+@app.get("/admin/system-prompt")
+def get_system_prompt(password: str):
+    admin_pass = os.getenv("ADMIN_PASSWORD", "admin123")
+    if password != admin_pass:
+        raise HTTPException(status_code=401, detail="Invalid password")
+    return {"system_prompt": SYSTEM_PROMPT}
 
 @app.get("/health")
 def health_check():
