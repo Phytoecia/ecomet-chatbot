@@ -35,8 +35,10 @@ export default function Home() {
     setInput("");
     setIsLoading(true);
 
+    const baseUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+
     try {
-      const response = await fetch("http://localhost:8000/chat", {
+      const response = await fetch(`${baseUrl}/chat`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ message: userMessage }),

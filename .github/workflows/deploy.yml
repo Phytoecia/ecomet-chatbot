@@ -5,15 +5,10 @@ on:
     branches: [ main ]
 
 jobs:
-  deploy-backend:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      
-      # NOTE: Simplified for example. Real Cloud Run deploy needs 'google-github-actions/auth' and 'deploy-cloudrun'
-      # We will add a placeholder or comment for the user to configure GCP credentials
-      - name: Build and Push Docker image (Placeholder)
-        run: echo "To automate Backend deploy, configure GCP Workload Identity Federation."
+  # deploy-backend: - Removed (User prefers Free Tier / Render)
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - run: echo "Deploying to Render via Auto-Deploy (configured in Render Dashboard)"
 
   deploy-frontend:
     runs-on: ubuntu-latest

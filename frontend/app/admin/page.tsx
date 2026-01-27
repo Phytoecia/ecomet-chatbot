@@ -11,9 +11,11 @@ export default function AdminPage() {
     const [status, setStatus] = useState("");
     const [activeTab, setActiveTab] = useState("logs");
 
+    const baseUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+
     const login = async () => {
         try {
-            const res = await fetch("http://localhost:8000/admin/login", {
+            const res = await fetch(`${baseUrl}/admin/login`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ password }),
@@ -31,12 +33,12 @@ export default function AdminPage() {
     };
 
     const fetchLogs = async () => {
-        const res = await fetch(`http://localhost:8000/admin/logs?password=${password}`);
+        const res = await fetch(`${baseUrl}/admin/logs?password=${password}`);
         if (res.ok) setLogs(await res.json());
     };
 
     const fetchPrompt = async () => {
-        const res = await fetch(`http://localhost:8000/admin/system-prompt?password=${password}`);
+        const res = await fetch(`${baseUrl}/admin/system-prompt?password=${password}`);
         if (res.ok) {
             const data = await res.json();
             setSystemPrompt(data.system_prompt);
@@ -44,7 +46,7 @@ export default function AdminPage() {
     };
 
     const updatePrompt = async () => {
-        const res = await fetch("http://localhost:8000/admin/system-prompt", {
+        const res = await fetch(`${baseUrl}/admin/system-prompt`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ new_prompt: systemPrompt, password }),

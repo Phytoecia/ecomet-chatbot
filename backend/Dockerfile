@@ -12,6 +12,6 @@ COPY . .
 # Assuming build context is root project dir
 COPY ../ecomet_reference_full.txt .
 
-EXPOSE 8080
+EXPOSE 7860
 
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8080"]
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "7860"]
