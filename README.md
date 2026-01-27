@@ -2,6 +2,8 @@
 
 An AI-powered assistant for the [eCOMET](https://phytoecia.github.io/eCOMET/) R package (Eco-Metabolomics Toolkit).
 
+**🔴 Live Demo**: [https://ecomet-chatbot.web.app](https://ecomet-chatbot.web.app)
+
 This chatbot helps users troubleshoot installation issues, find function references, and generate code, snippets for metabolomics data analysis.
 
 ## Features
