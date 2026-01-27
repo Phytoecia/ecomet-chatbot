@@ -35,10 +35,8 @@ export default function Home() {
     setInput("");
     setIsLoading(true);
 
-    // Zero-config URL for Hugging Face Backend
-    const baseUrl = process.env.NODE_ENV === "production"
-      ? "https://phytoecia-ecomet-chatbot-backend.hf.space"
-      : "http://localhost:8000";
+    // Use environment variable for backend URL (Systematic Approach)
+    const baseUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
 
     try {
       const response = await fetch(`${baseUrl}/chat`, {

@@ -13,11 +13,15 @@ app = FastAPI()
 # Enable CORS for frontend
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],  # Next.js default port
+    allow_origins=["*"],  # Allow all origins (Firebase, Localhost, etc.)
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+@app.get("/")
+def read_root():
+    return {"status": "eCOMET Backend is Running", "docs_url": "/docs"}
 
 class ChatRequest(BaseModel):
     message: str

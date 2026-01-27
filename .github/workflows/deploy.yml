@@ -26,6 +26,8 @@ jobs:
           npm ci
 
       - name: Build Frontend
+        env:
+          NEXT_PUBLIC_API_URL: https://phytoecia-ecomet-chatbot-backend.hf.space
         run: |
           cd frontend
           npm run build
