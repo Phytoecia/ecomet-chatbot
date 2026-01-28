@@ -86,7 +86,7 @@ async def chat(request: ChatRequest):
             raise HTTPException(status_code=500, detail="GEMINI_API_KEY not set")
 
         genai.configure(api_key=api_key)
-        model = genai.GenerativeModel("gemini-pro")
+        model = genai.GenerativeModel("models/gemini-2.5-flash")
         
         # Use the current global system prompt
         chat_session = model.start_chat(history=[
