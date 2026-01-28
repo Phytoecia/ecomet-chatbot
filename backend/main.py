@@ -23,6 +23,25 @@ app.add_middleware(
 def read_root():
     return {"status": "eCOMET Backend is Running", "version": "v2_systematic_fix", "docs_url": "/docs"}
 
+@app.get("/debug/models")
+def list_models():
+    """Debug endpoint to list available Gemini models"""
+    try:
+        api_key = os.getenv("GEMINI_API_KEY")
+        if not api_key:
+            return {"error": "GEMINI_API_KEY not set", "key_length": 0}
+        
+        genai.configure(api_key=api_key)
+        models = genai.list_models()
+        model_names = [m.name for m in models if 'generateContent' in [method.name for method in m.supported_generation_methods]]
+        return {
+            "api_key_set": True,
+            "api_key_prefix": api_key[:8] + "...",
+            "available_models": model_names[:10]  # First 10
+        }
+    except Exception as e:
+        return {"error": f"{type(e).__name__}: {str(e)}"}
+
 class ChatRequest(BaseModel):
     message: str
 
