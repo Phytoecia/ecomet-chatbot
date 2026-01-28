@@ -33,7 +33,8 @@ def list_models():
         
         genai.configure(api_key=api_key)
         models = genai.list_models()
-        model_names = [m.name for m in models if 'generateContent' in [method.name for method in m.supported_generation_methods]]
+        # supported_generation_methods is a list of strings
+        model_names = [m.name for m in models if 'generateContent' in m.supported_generation_methods]
         return {
             "api_key_set": True,
             "api_key_prefix": api_key[:8] + "...",
