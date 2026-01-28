@@ -59,8 +59,16 @@ export default function Home() {
   return (
     <div className="flex flex-col h-screen font-sans bg-white text-lg">
       {/* Navbar matched to eCOMET site */}
-      <nav className="bg-navbar border-b border-gray-200 px-8 py-4 flex items-center shadow-sm">
+      <nav className="bg-navbar border-b border-gray-200 px-8 py-4 flex items-center justify-between shadow-sm">
         <h1 className="text-2xl font-bold tracking-tight text-primary">eCOMET chatbot</h1>
+        <a
+          href="https://phytoecia.github.io/eCOMET/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="px-4 py-2 text-sm bg-primary text-white rounded-lg hover:bg-blue-600 transition-colors"
+        >
+          Package webpage
+        </a>
       </nav>
 
       {/* Chat Area */}
@@ -126,7 +134,8 @@ export default function Home() {
             disabled={isLoading}
           />
         </div>
-        <p className="text-center text-xs text-gray-400 mt-[-10vh] mb-4">Powered by Gemini & eCOMET Documentation</p>
+        <p className="text-center text-xs text-gray-400 mt-[-10vh] mb-2">Powered by Gemini & eCOMET Documentation</p>
+        <p className="text-center text-xs text-gray-400 mb-4">developed by Min-Soo Choi</p>
       </div>
     </div>
   );
