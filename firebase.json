@@ -10,8 +10,14 @@
             {
                 "source": "/chat",
                 "function": "api"
+            },
+            {
+                "source": "**",
+                "destination": "/index.html"
             }
-        ]
+        ],
+        "cleanUrls": true,
+        "trailingSlash": true
     },
     "functions": {
         "source": "backend"
