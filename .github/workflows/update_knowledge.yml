@@ -25,7 +25,7 @@ jobs:
           pip install requests beautifulsoup4
 
       - name: Scrape Documentation
-        run: python scrape_docs.py
+        run: python scripts/scrape_ecomet.py
 
       - name: Commit and Push changes
         run: |
