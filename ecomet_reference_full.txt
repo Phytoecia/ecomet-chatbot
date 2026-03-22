@@ -1,7 +1,7 @@
 # eCOMET Complete Knowledge Base
 # Documentation from: https://phytoecia.github.io/eCOMET
 # Source code from: https://github.com/Phytoecia/eCOMET
-# Last updated: 2026-03-15T02:01:46.514079
+# Last updated: 2026-03-22T01:55:28.315306
 
 
 ############################################################
@@ -2013,6 +2013,8 @@ SwitchGroup <- function(mmo, new_group_col) {
 #' @param mmo The mmo object
 #' @param canopus_structuredir Path to the SIRIUS structure_identification.tsv file
 #' @param canopus_formuladir Path to the SIRIUS canopus_formula_summary.tsv file
+#' @param filter_annot Logical. If TRUE, filter the annotations by probability threshold in CANOPUS.
+#' @param filter_threshold Numeric between 0 and 1. The probability threshold for filtering annotations.
 #' @return The mmo object with SIRIUS annotations added
 #' @export
 #' @examplesIf FALSE
@@ -2021,7 +2023,7 @@ SwitchGroup <- function(mmo, new_group_col) {
 #'  canopus_formuladir = "path/to/canopus_formula_summary.tsv"
 #' )
 #'
-AddSiriusAnnot <- function(mmo, canopus_structuredir, canopus_formuladir){
+AddSiriusAnnot <- function(mmo, canopus_structuredir, canopus_formuladir, filter_annot = FALSE, filter_threshold = 0.5){
     structure_identifications <- readr::read_tsv(canopus_structuredir,
         show_col_types = FALSE)
     structure_identifications$mappingFeatureId <- gsub(" ", "",
@@ -2043,14 +2045,17 @@ AddSiriusAnnot <- function(mmo, canopus_structuredir, canopus_formuladir){
 
     shared_columns <- intersect(colnames(structure_identifications), colnames(canopus_formula_summary))
     shared_columns <- shared_columns[!shared_columns %in% c('id')]
+    canopus_formula_summary <- canopus_formula_summary |> select(-all_of(shared_columns)) 
 
-    sirius_df <- left_join(left_join(sirius_df, structure_identifications,
-        by = c(id = "id"), multiple = "last"),
-        canopus_formula_summary, by = c(id = "id", shared_columns),
-        multiple = "last")
+    sirius_df <- left_join(left_join(sirius_df, structure_identifications, 
+        by = c(id = "id"), multiple = "last"), canopus_formula_summary, 
+        by = 'id', multiple = "last")
     mmo$sirius_annot <- sirius_df
     print("SIRIUS ver6 is anticipated. Import may not be complete in lower versions.")
     print("SIRIUS annotation added to mmo$sirius_annot")
+    if (filter_annot == TRUE){
+      mmo <- filter_canopus_annotations(mmo, input = "sirius_annot", pathway_level = 'All', threshold = filter_threshold, na_prob = TRUE, overwrite = TRUE)
+    }
     return(mmo)
 }
 
@@ -4144,7 +4149,7 @@ VolcanoPlot <- function(mmo, comp, topk = 10, log2FC_thr = 1,pthr = 0.05, outdir
       guides(colour = guide_legend(override.aes = list(size=1.5))) +
       theme_classic()+
       ggrepel::geom_label_repel(data = top_features,
-                      mapping = aes(.data$log2FC, -log(.data$padj,10), label = .data$feature), #previous: label = .data$id
+                      mapping = aes(.data$log2FC, -log(.data$padj,10), label = .data$id), #previous: label = .data$id
                       size = 2)
   } else{ ## using raw pval
       plot <- ggplot(VolData, aes(x = .data$log2FC, y = -log(.data$pval, 10))) +
@@ -4154,7 +4159,7 @@ VolcanoPlot <- function(mmo, comp, topk = 10, log2FC_thr = 1,pthr = 0.05, outdir
       guides(colour = guide_legend(override.aes = list(size=1.5))) +
       theme_classic()+
       ggrepel::geom_label_repel(data = top_features,
-                      mapping = aes(.data$log2FC, -log(.data$padj,10), label = .data$feature), #previous: label = .data$id
+                      mapping = aes(.data$log2FC, -log(.data$padj,10), label = .data$id), #previous: label = .data$id
                       size = 2)
   }
 
@@ -4416,7 +4421,7 @@ PLSDAplot <- function(mmo, color, topk = 10, outdir, normalization = 'Z', filter
 GenerateHeatmapInputs <- function(mmo, filter_id = FALSE, id_list = NULL,
                                 filter_group = FALSE, group_list = NULL,
                                 summarize = 'mean', control_group = 'ctrl',
-                                normalization = 'None', distance = 'dreams') {
+                                normalization = 'None', distance = NULL) {
   if (filter_id||filter_group){
     mmo <- filter_mmo(mmo, id_list = id_list, group_list = group_list)
   }
@@ -4431,15 +4436,21 @@ GenerateHeatmapInputs <- function(mmo, filter_id = FALSE, id_list = NULL,
   }
   # 12.1.2. Filter features
   # Determine distance metric
-  distance_matrix <- GetDistanceMat(mmo, distance = distance)
-  heatmap_data <- heatmap_data |> filter(.data$id %in% rownames(distance_matrix)) # remove features not in distance matrix
+  if (!is.null(distance)){
+    distance_matrix <- GetDistanceMat(mmo, distance = distance)
+    heatmap_data <- heatmap_data |> filter(.data$id %in% rownames(distance_matrix)) # remove features not in distance matrix
+  }
 
   # make matrix for heatmap
   FC_matrix <- as.matrix(heatmap_data[,-1])
   rownames(FC_matrix) <- heatmap_data$id
-  # Reorder the rows of distance_matrix to match the order of FC_matrix_
-  distance_matrix <- distance_matrix[rownames(FC_matrix), rownames(FC_matrix)]
-  dist_matrix <- as.dist(distance_matrix)
+  if (!is.null(distance)){
+    # Reorder the rows of distance_matrix to match the order of FC_matrix_
+    distance_matrix <- distance_matrix[rownames(FC_matrix), rownames(FC_matrix)]
+    dist_matrix <- as.dist(distance_matrix)
+  } else{
+    dist_matrix <- NULL
+  }
 
   row_label <- rownames(FC_matrix)
   return(list(FC_matrix = FC_matrix, dist_matrix = dist_matrix, row_label = row_label, heatmap_data = heatmap_data))
