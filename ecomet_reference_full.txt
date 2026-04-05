@@ -1,7 +1,7 @@
 # eCOMET Complete Knowledge Base
 # Documentation from: https://phytoecia.github.io/eCOMET
 # Source code from: https://github.com/Phytoecia/eCOMET
-# Last updated: 2026-03-29T02:03:55.280428
+# Last updated: 2026-04-05T02:05:41.189275
 
 
 ############################################################
@@ -221,6 +221,8 @@ Tutorials
 Intro
 eCOMET-intro
 Treatment-based_study_tutorial
+Treatment-based Study Tutorial
+Interspecific Ecometabolomics Tutorial
 Interspecific Ecometabolomics Tutorial
 Interspecific Ecometabolomics Tutorial
 UNKNOWN TITLE
