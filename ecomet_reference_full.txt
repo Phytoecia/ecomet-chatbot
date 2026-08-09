@@ -1,7 +1,7 @@
 # eCOMET Complete Knowledge Base
 # Documentation from: https://phytoecia.github.io/eCOMET
 # Source code from: https://github.com/Phytoecia/eCOMET
-# Last updated: 2026-08-02T02:23:34.387964
+# Last updated: 2026-08-09T01:19:14.572244
 
 
 ############################################################
@@ -17,7 +17,7 @@ Source: https://phytoecia.github.io/eCOMET/index.html
 
 Welcome to eCOMET: A Tool for Mass Spectrometry–Based Ecological Metabolomics
 eCOMET
-is an R package designed specifically for ecological metabolomics (ecometabolomics), in which researchers apply untargeted mass spectrometry-based metabolomics to characterize the chemical phenotypes of organisms in their ecological and evolutionary contexts. Unlike metabolomics in biomedical or model-organism research, ecometabolomics frequently involve non-model, non-animal systems where genomic resources are scarce, reference spectral libraries provide limited coverage, and metabolic pathway annotations remain incomplete. Nevertheless, the goal of the package is to help ecologists and evolutionary biologists gain insights into organisms’ chemistry from metabolomic data despite these constraints.
+is an R package designed specifically for ecological metabolomics (ecometabolomics), in which researchers apply untargeted mass spectrometry-based metabolomics to characterize the chemical phenotypes of organisms in their ecological and evolutionary context. Unlike metabolomics in biomedical or model-organism research, ecometabolomics frequently involve non-model, non-animal systems where genomic resources are scarce, reference spectral libraries provide limited coverage, and metabolic pathway annotations remain incomplete. Never the less, the goal of the package is to help chemical ecologists gain ecological insights from metabolomics data despite these contraints.
 It has two core goals:
 Standardize ecometabolomics workflows
 by introducing the
@@ -30,36 +30,30 @@ SIRIUS/CANOPUS
 DreaMS
 , and
 GNPS
-— making it easier to integrate data streams and improve reproducibility.
+— making it easier to integrate data steams and improves reproducibility.
 Provide educational resources for chemical ecologists
-through annotated tutorials covering common study designs, from treatment-based experiments to multi-species field comparisons. Unlike biomedical metabolomics toolkits, eCOMET is built around the questions chemical ecologists actually ask: How does chemical diversity vary among species or across habitats? Which compounds are differentially accumulated under stress? How does metabolomic composition relate to trait or performance data?
+through annotated tutorials covering common study designs, from treatment-based experiments to multi-species field comparisons. Unlike biomedical metabolomics toolkits, eCOMET is built around the questions chemical ecologists actually ask: How does chemical diversity vary across species or habitats? Which compounds are differentially accumulated under stress? How does metabolomic composition relate to trait or performance data?
 Key Features
-Data integration and the
+Data ingestion and the
 mmo
-object:
-Import MZmine feature tables and link them to sample metadata; Add SIRIUS/CANOPUS compound class annotations; Add pairwise chemical similarity from DreaMS, MS2DeepScore, or cosine similarity; Add custom annotations from in-house compound databases; Filter the
+object
+- Import MZmine feature tables and link them to sample metadata - Add SIRIUS/CANOPUS compound class annotations - Add pairwise chemical similarity from DreaMS, MS2DeepScore, or cosine similarity - Add custom annotations from in-house compound databases - Filter the
 mmo
-object by sample, group, or feature list — all linked tables update together; Match and filter associated MGF spectral files to ensure MS2 data remain synchronized;
-Statistics and differential analysis:
-Differential accumulation analysis (DAMs) with pairwise group comparisons; Volcano plots, ANOVA with post-hoc tests, and log2 fold-change summaries; Metabolite set enrichment analysis (MSEA) using CANOPUS class annotations; Chemical class enrichment analysis across multiple ClassyFire and NPClassifier annotation levels; Phenotype association screening — correlate individual features with continuous ecological variables (height, herbivory, temperature, etc.);
-Chemical diversity:
-Alpha diversity: richness, Faith’s PD, Hill numbers (q = 0, 1, 2), functional Hill numbers weighted by chemical distance, rarefaction curves; Beta diversity: Bray–Curtis, Jaccard, CSCS (Chemical Structural and Compositional Similarity), and Generalized UniFrac using spectral similarity distances; Ordination: PCA, PLS-DA, NMDS, PCoA, hierarchical clustering; Specialization index for comparing chemical breadth across species or treatments;
-Compound networks and dendrograms:
-Build feature dendrograms from pairwise chemical distances (DreaMS, MS2DeepScore, cosine, or custom); Incorporate Ion Identity Networking (IIN) and feature correlation constraints into dendrogram topology; Visualize dendrograms with
+object by sample, group, or feature list — all linked tables update together - Match and filter associated MGF spectral files to keep MS2 data in sync
+Statistics and differential analysis
+- Differential accumulation analysis (DAMs) with pairwise group comparisons - Volcano plots, ANOVA with post-hoc tests, and log2 fold-change summaries - Metabolite set enrichment analysis (MSEA) using CANOPUS class annotations - Chemical class enrichment analysis across multiple ClassyFire and NPC levels - Phenotype association screening — correlate individual features with continuous ecological variables (height, herbivory, temperature, etc.)
+Chemical diversity
+- Alpha diversity: richness, Faith’s PD, Hill numbers (q = 0, 1, 2), functional Hill numbers weighted by chemical distance, rarefaction curves - Beta diversity: Bray-Curtis, Jaccard, CSCS (Chemical Structural and Compositional Similarity), and Generalized UniFrac using spectral similarity distances - Ordination: PCA, PLS-DA, NMDS, PCoA, hierarchical clustering - Specialization index for comparing chemical breadth across species or treatments
+Compound networks and dendrograms
+- Build feature dendrograms from pairwise chemical distances (DreaMS, MS2DeepScore, cosine, or custom) - Incorporate Ion Identity Networking (IIN) and feature correlation constraints into dendrogram topology - Visualize dendrograms with
 ggtree
-— circular or rectangular layouts, class coloring, with layers fully compatible with
-ggplot2
-; Export to
-iTOL
-for interactive annotation and publication-quality circular trees; Export node and edge tables for
-Cytoscape
-molecular network visualization;
-Visualization:
-All plot functions return
+— circular or rectangular layouts, class coloring, fully layerable with ggplot2 - Export to iTOL for interactive annotation and publication-quality circular trees - Export node and edge tables for Cytoscape molecular network visualization
+Visualization
+- All plot functions return
 ggplot
 /
 ggtree
-objects — add layers, themes, and annotations after the call; Stacked bar plots of compound class composition by group; Heatmaps with flexible normalization and annotation tracks;
+objects — add layers, themes, and annotations after the call - Stacked bar plots of NPC compound class composition by group - Heatmaps with flexible normalization and annotation tracks
 Installation
 Install eCOMET from GitHub using
 pak
@@ -121,59 +115,86 @@ Package index
 Core dataset processing
 Build and populate the mmo object from MZmine outputs and annotation tools.
 GetMZmineFeature()
-Import MZmine feature table and metadata to create a mmo object
+Import MZmine feature table and metadata to create a mmo (mass-spectrometry metabolomics object)
 AddSiriusAnnot()
-Adding annotation from SIRIUS to the mmo object
+Adding annotation from SIRIUS to the
+mmo
+AddChemSim()
+Add chemical similarity matrices to the
+mmo
+AddCustomSim()
+Add a custom feature similarity matrix to the
+mmo
 AddChemDist()
-Add chemical distance matrices to the mmo object
+Add chemical distance matrices to the
+mmo
 AddCustomDist()
-Add a custom feature distance matrix to the mmo object
+Add a custom feature distance matrix to the
+mmo
 AddCustomAnnot()
-Add custom annotations to an mmo object
+Add custom annotations to a
+mmo
 ReplaceZero()
-#' Replace zero and NA values in the mmo object
+#' Replace zero and NA values in the
+mmo
 MassNormalization()
 Use sample mass in the metadata file to normalize the peak area
 LogNormalization()
-Log-normalize the peak area in the mmo object
+Log-normalize the peak area in the
+mmo
 MeancenterNormalization()
-Mean-center the peak area in the mmo object
+Mean-center the peak area in the
+mmo
 ZNormalization()
-Z-normalize the peak area in the mmo object
+Z-normalize the peak area in the
+mmo
 ReorderGroups()
-Reorder samples in the mmo object based on group order
+Reorder samples in the
+mmo
+based on group order
 SwitchGroup()
-Switch the group column in the mmo object
+Switch the group column in the
+mmo
 FeaturePresence()
 Convert feature abundances to presence / absence
 Filtering
 Subset the mmo object by samples, groups, or features, and keep associated MGF spectral files in sync.
 filter_mmo()
-Filter an mmo object by samples, groups, and/or features
+Filter a
+mmo
+by samples, groups, and/or features
 filter_mgf_to_mmo()
-Filter an MGF file to keep only spectra for features present in mmo$feature_data$id
+Filter an MGF file to keep only spectra for features present in
+mmo$feature_data$id
 annotate_feature_info_ms2_from_mgf()
-Annotate mmo$feature_info with MS2 presence and MS2 block counts from an MGF
+Annotate
+mmo$feature_info
+with MS2 presence and MS2 block counts from an MGF
 filter_canopus_annotations()
-Filter CANOPUS / SIRIUS annotations in an ecomet mmo object by probability threshold
+Filter CANOPUS / SIRIUS annotations in an eCOMET
+mmo
+by probability threshold
 filter_cosmic_structure()
 Filter SIRIUS structure (CSI:FingerID) annotations by COSMIC confidence score
 Differential analysis & visualization
 Identify and visualize differentially accumulated metabolites between groups.
 PairwiseComp()
-Perform pairwise comparison between two groups in the mmo object
+Perform pairwise comparison between two groups in the
+mmo
 GetDAMs()
-Generates lists of DAMs (Differentially Accumulated Metabolites) for each comparison in the mmo object
+Generates lists of DAMs (Differentially Accumulated Metabolites) for each comparison in the
+mmo
 GetLog2FoldChange()
 Calculate log2 fold change for a given control group
 GetGroupMeans()
-Calculate group means from the mmo object
+Calculate group means from the
+mmo
 VolcanoPlot()
 Volcano plot for visualizing differential metabolite analysis results
 AnovaBarPlot()
 Generate barplots for each feature and perform ANOVA
 GenerateHeatmapInputs()
-Generate input files to be used for pheatmap from the mmo object
+GenerateHeatmapInputs (similarity-based)
 Ordination & clustering
 Multivariate methods for comparing samples and groups.
 PCAplot()
@@ -189,17 +210,17 @@ HCplot
 Chemical diversity
 Alpha and beta diversity metrics incorporating feature abundance and chemical distances.
 GetAlphaDiversity()
-GetAlphaDiversity
+GetAlphaDiversity (similarity-based)
 GetBetaDiversity()
-GetBetaDiversity
+GetBetaDiversity (similarity-based)
 GetRichness()
 GetRichness
 GetHillNumbers()
 GetHillNumbers
 GetFunctionalHillNumber()
-GetFunctionalHillNumber
+GetFunctionalHillNumber (similarity-based)
 GetFaithPD()
-GetFaithPD
+GetFaithPD (similarity-based)
 RarefactionAUC()
 RarefactionAUC
 CalculateGroupBetaDistance()
@@ -225,7 +246,7 @@ Metabolite Set Enrichment Analysis (MSEA)
 Compound networks & dendrograms
 Build chemical similarity trees and export to iTOL or Cytoscape.
 FeatureDendrogram()
-FeatureDendrogram
+FeatureDendrogram (similarity-based)
 PlotFeatureDendrogram()
 PlotFeatureDendrogram
 ExportITOL()
@@ -255,33 +276,72 @@ Save mmo objects and export results.
 SaveMMO()
 Save entire mmo object to a file (RDS)
 LoadMMO()
-Load an mmo object previously saved with SaveMMO
+Load a
+mmo
+previously saved with SaveMMO
 ExportFeaturesToCSV()
 ExportFeaturesToCSV
 pool_mmo_by_group()
 pool_mmo_by_group
 Utilities
 Helper functions for data access, formatting, and internal calculations.
+GetSimMat()
+Retrieve a feature similarity matrix from the
+mmo
 GetDistanceMat()
-Get the distance matrix from the mmo object based on the specified distance metric
+Get the distance matrix from the
+mmo
+based on the specified distance metric
 GetNormFeature()
-Retrieve feature data from the mmo object, with normalization options
+Retrieve feature data from the
+mmo
+, with normalization options
 FeatureToID()
-Convert feature names to IDs in the mmo object
+Convert feature names to IDs in the
+mmo
 IDToFeature()
-Convert feature IDs to names in the mmo object
+Convert feature IDs to names in the
+mmo
 print(
 <mmo>
 )
-Print method for mmo objects Provides a clean, human-readable overview of an
+Print method for
+mmo
+s Provides a clean, human-readable overview of an
 mmo
 list object instead of dumping the entire list when the object is printed in the console.
 anova_tukey_dunnett()
-Perform ANOVA and Tukey's HSD test on the mmo object
+Perform ANOVA and Tukey's HSD test on the
+mmo
 write_anova()
 Write results of anova_tukey_dunnett to a CSV file
 permanova_stat()
 Perform PERMANOVA and pairwise comparisons
+Dissimilarity-based versions (superseded)
+Retained versions of the diversity and dendrogram functions that read the older
+.dissim
+slots written by
+AddChemDist()
+. The functions without the
+_derep
+suffix read the
+.sim
+slots written by
+AddChemSim()
+and are the recommended entry points.
+GetAlphaDiversity_derep()
+GetAlphaDiversity
+GetBetaDiversity_derep()
+GetBetaDiversity
+GetFaithPD_derep()
+GetFaithPD
+GetFunctionalHillNumber_derep()
+GetFunctionalHillNumber
+FeatureDendrogram_derep()
+FeatureDendrogram
+GenerateHeatmapInputs_derep()
+Generate input files to be used for pheatmap from the
+mmo
 
 
 ============================================================
@@ -295,7 +355,7 @@ eCOMET-intro
 Tutorial 1: Treatment-based Metabolomics
 Tutorial 2: Interspecific Ecometabolomics
 Tutorial 3: Compound Dendrograms and Molecular Networks
-Contributing
+Contribute
 How to Contribute
 
 
@@ -306,6 +366,82 @@ Source: https://phytoecia.github.io/eCOMET/news/index.html
 
 Changelog
 ecomet (development version)
+Rao’s quadratic entropy normalisation
+GetFunctionalHillNumber()
+and
+GetFunctionalHillNumber_derep()
+divided the feature proportion matrix by
+raoQ
+with
+/
+.
+raoQ
+holds one value per sample while the matrix is features x samples, so R recycled the divisor down the columns and only 4.2% of cells received their own sample’s Rao Q. The division now uses
+sweep(..., 2, raoQ, "/")
+.
+This changes every weighted alpha-diversity value (
+GetAlphaDiversity(mode = "weighted")
+). On the treatment-based tutorial data the q = 1 numbers move by up to 13.3%; on the interspecific data, where samples differ more, by up to 63.5%, and the ordering of samples changes at every q >= 1. Results computed with earlier versions need recalculating. Richness, unweighted Hill numbers, Faith’s PD, and all beta-diversity methods are unaffected.
+A sample whose abundances sum to zero now returns
+NA
+rather than 1 (q = 1) or
+Inf
+(q != 1). Its Rao Q is undefined, and
+GetHillNumbers()
+already returned
+NA
+in the same situation.
+Similarity-based storage, review follow-ups
+ScreenFeaturePhenotypeCorrelation()
+,
+GetPerformanceFeatureCorrelation()
+, and
+GetPerformanceFeatureRegression()
+no longer report a correlation of zero when a value is missing. Samples with no phenotype value are dropped before the vectorised covariance step, and features carrying a missing value are computed with
+cor.test()
+so that pairwise deletion still applies. Previously a single missing phenotype value silently set every feature’s coefficient to 0 and its p-value to 1.
+Spearman correlation again uses
+cor.test()
+, which supplies the exact small-sample p-value. The vectorised normal approximation that replaced it shifted p-values enough to change significance calls.
+GetGroupMeans()
+returns rows sorted by feature id again, so heatmap row order and exported tables match earlier releases. An unused factor level in the group column no longer produces an all-missing column.
+GetFaithPD()
+,
+GetBetaDiversity()
+, and
+GetAlphaDiversity()
+gained a
+use_fastcluster
+argument, default
+FALSE
+. Tree building previously used
+fastcluster::hclust()
+whenever that package happened to be installed; because it breaks ties between equal distances differently from
+stats::hclust()
+, the same data could give different diversity values on different machines.
+GetBetaDiversity(method = "CSCS")
+checks the similarity diagonal with
+Matrix::diag()
+instead of expanding the whole matrix to dense.
+GenerateHeatmapInputs()
+stops with an explanatory error above 10,000 features rather than allocating a very large dense distance matrix.
+Tutorial 2 now uses
+AddChemSim()
+; it previously built a
+.dissim
+slot that the similarity-based diversity functions could not read. Tutorial 3 calls
+FeatureDendrogram_derep()
+and its note describes which functions read which slot.
+AddChemSim()
+,
+GetSimMat()
+,
+AddCustomSim()
+, and the six
+_derep
+functions are exported. The documentation block for
+GetFaithPD()
+had lost its title and was being attached to an internal helper.
 eCOMET 0.0.0.9000
 Initial packaged version from custom functions
 Roxygen-formated
@@ -352,7 +488,6 @@ Description: The ecomet package provides tools for processing and analyzing mass
 License: AGPL-3
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.3
 Imports:
   Matrix,
   dplyr,
@@ -393,6 +528,7 @@ Remotes:
     pmartinezarbizu/pairwiseAdonis/pairwiseAdonis
 URL: https://phytoecia.github.io/eCOMET/
 VignetteBuilder: knitr
+Config/roxygen2/version: 8.0.0
 
 ```
 
@@ -3627,6 +3763,16 @@ GenerateHeatmapInputs_derep <- function(mmo, filter_id = FALSE, id_list = NULL,
 #' row clustering.
 #'
 #' @inheritParams GenerateHeatmapInputs_derep
+#' @return A list containing the following elements:
+#' \itemize{
+#'   \item FC_matrix: A matrix of fold change or mean values
+#'   \item dist_matrix: A distance matrix derived from the similarity matrix
+#'     as \code{1 - S}, or \code{NULL} when \code{distance} is not supplied
+#'   \item row_label: A vector of row labels for custom-annotated features
+#'     (see \code{AddCustomAnnot()}). Feature IDs are used when no custom
+#'     annotation is available.
+#'   \item heatmap_data: A data frame of the heatmap values with feature IDs
+#' }
 #' @export
 GenerateHeatmapInputs <- function(mmo, filter_id = FALSE, id_list = NULL,
                                   filter_group = FALSE, group_list = NULL,
@@ -5112,8 +5258,11 @@ GetFunctionalHillNumber <- function(
   relative_proportions <- relative_proportions[rownames(scaled_similarity), , drop = FALSE]
 
   # Rao Q via similarity: p'Dp = 1 - p'Sp (exact identity when sum(p)=1, D=1-S).
-  # No as.matrix() call here — sparse S passes directly into %*% without densification.
-  SP   <- scaled_similarity %*% relative_proportions
+  # S stays sparse and goes into %*% as is — never densify it (n x n).
+  # The product is n_features x n_samples and is dense either way (%*% returns a
+  # dgeMatrix), so as.matrix() here costs nothing and keeps every downstream
+  # colSums/sweep in base semantics.
+  SP   <- as.matrix(scaled_similarity %*% relative_proportions)
   raoQ <- 1 - colSums(relative_proportions * SP)
   # raoQ holds one value per SAMPLE, while relative_proportions is
   # features x samples. `relative_proportions / raoQ` would recycle raoQ down
@@ -5125,17 +5274,16 @@ GetFunctionalHillNumber <- function(
   functional_hill_number <- c()
   if (q == 1) {
     mask <- relative_proportions > 0
-    Plog <- ifelse(mask, ratio * log(ratio), 0)
-    # Dp = 1 - Sp  (valid because sum(p) = 1, so J%*%p = 1)
+    Plog <- ifelse(mask, ratio * log(relative_proportions), 0)
     DP   <- 1 - SP
-    vals <- 2 * colSums(Plog * DP)
+    vals <- 2 * colSums(Plog * DP) - log(raoQ)
     functional_hill_number <- exp(-vals)
   } else {
-    Pq  <- ratio^q
-    SPq <- scaled_similarity %*% Pq
-    # Dpq = colSums(Pq)*1 - Spq  (general: Pq does not sum to 1, so J%*%Pq != 1)
-    DPq <- sweep(SPq, 2, colSums(Pq), function(sp, cs) cs - sp)
-    vals <- colSums(Pq * DPq)
+    Pq  <- relative_proportions^q            
+    Pq[relative_proportions == 0] <- 0       
+    SPq <- as.matrix(scaled_similarity %*% Pq)
+    DPq <- sweep(SPq, 2, colSums(Pq), function(sp, cs) cs - sp)   
+    vals <- colSums(Pq * DPq) / raoQ^q       
     functional_hill_number <- vals^(1 / (1 - q))
   }
   # A sample with no signal has proportions summing to 0, so its Rao Q and
@@ -5356,7 +5504,7 @@ GetFaithPD <- function(feature, metadata, sim_matrix, threshold = 0, use_mst = F
   # ------------------------------------------------------------------
   # Tree building: average-linkage for small n, MST for large n or on request
   # ------------------------------------------------------------------
-  if (!use_mst && n <= 10000L) {
+  if (!use_mst) {
     dist_mat <- as.dist(1 - as.matrix(sim_matrix))
     hc <- if (isTRUE(use_fastcluster)) {
       .require_pkg("fastcluster")
@@ -5365,19 +5513,19 @@ GetFaithPD <- function(feature, metadata, sim_matrix, threshold = 0, use_mst = F
       stats::hclust(dist_mat, method = "average")
     }
     tree <- ape::as.phylo(hc)
-  } else {
-    if (n > 10000L && !use_mst) {
-      warning(
+    if (n > 10000L) {
+      message(
         "GetFaithPD: n = ", n, " features is too large for average-linkage clustering.\n",
         "Automatically switching to minimum spanning tree (single-linkage). ",
         "Results are valid but may differ from smaller datasets.\n",
         "To avoid this: use filter_mmo() to reduce feature count below 10,000.",
         call. = FALSE
       )
-    } else {
-      message("GetFaithPD: using minimum spanning tree (single-linkage) tree (use_mst = TRUE).")
     }
+  } else {
+    message("GetFaithPD: using minimum spanning tree (single-linkage) tree (use_mst = TRUE).")
     tree <- sparse_single_phylo(sim_matrix, M = 1)
+    
   }
 
   ids <- feature$id
@@ -6456,7 +6604,7 @@ GetBetaDiversity <- function(mmo, method = 'Gen.Uni', normalization = 'None', di
   # Build tree only for Gen.Uni
   if (method == 'Gen.Uni') {
     n_feat <- nrow(sim_mat)
-    if (!use_mst && n_feat <= 10000L) {
+    if (!use_mst) {
       dist_s <- as.dist(1 - as.matrix(scaled_similarity))
       hc_s <- if (isTRUE(use_fastcluster)) {
         .require_pkg("fastcluster")
@@ -6465,19 +6613,15 @@ GetBetaDiversity <- function(mmo, method = 'Gen.Uni', normalization = 'None', di
         stats::hclust(dist_s, method = "average")
       }
       compound_tree <- ape::as.phylo(hc_s)
-    } else {
-      if (n_feat > 10000L && !use_mst) {
-        warning(
-          "GetBetaDiversity(Gen.Uni): n = ", n_feat, " features is too large for ",
-          "average-linkage clustering.\n",
-          "Automatically switching to minimum spanning tree (single-linkage). ",
-          "Results are valid but may differ from smaller datasets.\n",
-          "To avoid this: use filter_mmo() to reduce feature count below 10,000.",
-          call. = FALSE
+      if (n_feat > 10000L) {
+        message(
+          "GetBetaDiversity(Gen.Uni): n = ", n_feat, " features might be too large for ",
+          "average-linkage clustering. Results are valid but may differ from smaller datasets.\n",
+          "To avoid this: use filter_mmo() to reduce feature count below 10,000, or set use_mst = TRUE."
         )
-      } else {
-        message("GetBetaDiversity(Gen.Uni): using minimum spanning tree (single-linkage) tree (use_mst = TRUE).")
       }
+    } else {
+      message("GetBetaDiversity(Gen.Uni): using minimum spanning tree (single-linkage) tree (use_mst = TRUE).")
       compound_tree <- sparse_single_phylo(scaled_similarity, M = 1)
     }
   }
@@ -7046,6 +7190,17 @@ FeatureDendrogram_derep <- function(
 #' (\code{1 - within_group_dist}) rather than low distance.
 #'
 #' @inheritParams FeatureDendrogram_derep
+#' @return A named list with:
+#' \itemize{
+#'   \item \code{hclust}     -- the \code{hclust} object
+#'   \item \code{dendrogram} -- the \code{dendrogram} object
+#'   \item \code{phylo}      -- the \code{phylo} object (for ape/iTOL)
+#'   \item \code{dist_used}  -- the distance matrix used for clustering
+#'     (\code{1 - sim_used})
+#'   \item \code{sim_used}   -- the (possibly modified) similarity matrix
+#'   \item \code{tip_map}    -- data.frame of feature ID -> group assignment
+#'     (\code{NULL} when \code{ion_identity = "none"})
+#' }
 #' @export
 FeatureDendrogram <- function(
     mmo,
