@@ -1,7 +1,7 @@
 # eCOMET Complete Knowledge Base
 # Documentation from: https://phytoecia.github.io/eCOMET
 # Source code from: https://github.com/Phytoecia/eCOMET
-# Last updated: 2026-08-30T03:19:21.263567
+# Last updated: 2026-09-06T02:39:22.435122
 
 
 ############################################################
